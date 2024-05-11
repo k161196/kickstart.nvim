@@ -1,0 +1,139 @@
+{
+  "try catch": {
+    "prefix": "trycatch",
+    "body": [
+      "try {",
+      "} catch (error) {",
+      "  console.error('error', error?.message ?? error);",
+      "}"
+    ],
+    "description": "test"
+  },
+  "Function": {
+    "prefix": "func",
+    "body": [
+      "const $1 = async (tData) => {",
+      "  try {",
+      "    const {$2} = tData;",
+      "    $3",
+      "    return {",
+      "     status: true,",
+      "     message: 'success',",
+      "     data: undefined,",
+      "    };",
+      "  } catch (error) {",
+      "    console.error('error at function $1 :', error?.message ?? error);",
+      "    return {",
+      "     status: false,",
+      "     message: error?.message ?? 'fail',",
+      "    };",
+      "  }",
+      "};"
+    ],
+    "description": "test"
+  },
+  "Zod Function": {
+    "prefix": "zfunc",
+    "body": [
+      "const $1Schema = zod.object({",
+      "  test: zod.string(),",
+      "});",
+      "",
+      "type $1Type = zod.infer<typeof $1Schema>;",
+      "",
+      "const $1 = async (tData: $1Type) => {",
+      "  try {",
+      "    const validationResult = $1Schema?.safeParse(tData);",
+      "    if (!validationResult?.success) {",
+      "      const validationError = fromZodError(validationResult?.error)?.toString();",
+      "      throw new Error(validationError);",
+      "    }",
+      "    ",
+      "	const validatedData = validationResult?.data;",
+      "	const {} = validatedData;",
+      "    const {} = tData;",
+      "    $2",
+      "",
+      "    return {",
+      "      status: true,",
+      "      message: 'success',",
+      "      data: undefined,",
+      "    };",
+      "  } catch (error) {",
+      "    console.error('error at function $1 :', error?.message ?? error);",
+      "    return {",
+      "      status: false,",
+      "      message: error?.message ?? 'fail',",
+      "    };",
+      "  }",
+      "};"
+    ]
+  },
+  "Function Response": {
+    "prefix": "funcr",
+    "body": [
+      "const $1Response = await $1({ $2 });",
+      "const { status, message = 'fail to get payment', data } = $1Response;",
+      "if (status == false) {",
+      "  throw new Error(message);",
+      "}",
+      "$3"
+    ],
+    "description": "test"
+  },
+  "Firestore batch operation": {
+    "prefix": "fsbo",
+    "body": [
+      "let batch = db.batch();",
+      "let batchCount = 0;",
+      "let changeObj = {};",
+      "if (Object?.keys(changeObj)?.length) {",
+      "  const docRef = db.collection($1).doc($2);",
+      "  batch.set(docRef, changeObj, { merge: true });",
+      "  batchCount = batchCount + 1;",
+      "}",
+      "if (batchCount == 200) {",
+      "  await batch.commit();",
+      "  console.log('commited')",
+      "  batch = db.batch();",
+      "  batchCount = 0;",
+      "}",
+      "if (batchCount) {",
+      "  await batch.commit();",
+      "  console.log('commited1')",
+      "  batchCount = 0;",
+      "}"
+    ],
+    "description": "test"
+  },
+  "Firestore get operation": {
+    "prefix": "fsgo",
+    "body": [
+      "const $1Snapshot = await db.collection('$1s').doc($1Id).get()",
+      "const $1Data = $1Snapshot?.data()"
+    ]
+  },
+  "Firestore  GET MULTIPLE operation": {
+    "prefix": "fsgom",
+    "body": [
+      "const data: any = [];",
+      "",
+      "const $1Snapshots = await db",
+      "  .collection('$1')",
+      "  .select('$2')",
+      "  .where('$3', '==', $4)",
+      "  .limit(10)$5",
+      "  .get();",
+      "",
+      "for (let index = 0; index < $1Snapshots?.docs.length; index++) {",
+      "  const $1Snapshot = $1Snapshots?.docs[index];",
+      "  const $1Data = $1Snapshot?.data();",
+      "  if (!$1Data?.id) {",
+      "    $1Data['id'] = $1Snapshot?.id;",
+      "  }",
+      "  data?.push($1Data);$6",
+      "}"
+    ],
+    "description": "test"
+  }
+}

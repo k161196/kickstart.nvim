@@ -1,0 +1,13 @@
+{
+  "name": "test",
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "all"
+        ],
+        "path": "./1.json"
+      }
+    ]
+  }
+}
