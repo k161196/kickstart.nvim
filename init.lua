@@ -651,7 +651,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true, typescript = false }
+        local disable_filetypes = { c = true, cpp = true, typescript = true }
         return {
           timeout_ms = 500,
           lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -679,7 +679,6 @@ require('lazy').setup({
       {
         'L3MON4D3/LuaSnip',
         build = (function()
-          -- Build Step is needed for regex support in snippets.
           -- This step is not supported in many windows environments.
           -- Remove the below condition to re-enable on windows.
           if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
@@ -893,6 +892,25 @@ require('lazy').setup({
       -- add any options here
     },
     lazy = false,
+  },
+  {
+    'mg979/vim-visual-multi',
+    opts = {
+      -- add any options here
+    },
+    lazy = false,
+    config = function(self, opts) end,
+  },
+  {
+    'ggandor/leap.nvim',
+    config = function()
+      local leap = require 'leap'
+      -- leap.add_default_mappings()
+      leap.opts.case_sensitive = true
+      vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap-forward)')
+      vim.keymap.set({ 'n', 'x', 'o' }, 'S', '<Plug>(leap-backward)')
+      vim.keymap.set({ 'n', 'x', 'o' }, 'gs', '<Plug>(leap-from-window)')
+    end,
   },
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and

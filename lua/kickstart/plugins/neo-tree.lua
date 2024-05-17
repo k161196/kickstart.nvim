@@ -11,7 +11,7 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '\\', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
+    { ']]', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
   },
   opts = {
     filesystem = {
@@ -20,7 +20,7 @@ return {
       },
       window = {
         mappings = {
-          ['\\'] = 'close_window',
+          [']]'] = 'close_window',
         },
       },
     },

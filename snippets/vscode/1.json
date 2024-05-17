@@ -1,4 +1,14 @@
 {
+  "for loop": {
+    "prefix": "for",
+    "body": [
+      "for (let i = 0; i <= $1.length; i++) {",
+      " const $2 = $1[i];",
+      "}"
+    ],
+
+    "description": "for loop in javascript"
+  },
   "try catch": {
     "prefix": "trycatch",
     "body": [
