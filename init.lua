@@ -36,7 +36,7 @@ What is Kickstart?
     a guide. One possible example which will only take 10-15 minutes:
       - https://learnxinyminutes.com/docs/lua/
 
-    After understanding a bit more about Lua, you can use `:help lua-guide` as a
+    After understanding a bit more about Lua, you can use `:help ltemplua-guide` as a
     reference for how Neovim integrates Lua.
     - :help lua-guide
     - (or HTML version): https://neovim.io/doc/user/lua-guide.html
@@ -153,6 +153,8 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+-- added templ file type
+vim.filetype.add { extension = { templ = 'templ' } }
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -189,6 +191,13 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+-- extra key bindings by kiran yadav
+--
+vim.keymap.set('n', '<Tab>', 'gt', { desc = 'Move to next tab' })
+vim.keymap.set('n', '<S-Tab>', 'gT', { desc = 'Move to previous tab' })
+vim.keymap.set('i', 'jj', '<Esc>', { desc = 'Escape insert mode' })
+--['<Tab>'] = cmp.mapping.select_next_item(),
+--['<S-Tab>'] = cmp.mapping.select_prev_item(),
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -584,7 +593,31 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
-
+        htmx = {
+          filetypes = {
+            'html',
+            'templ',
+          },
+        },
+        tailwindcss = {
+          filetypes = {
+            'templ',
+            'astro',
+            'javascript',
+            'typescript',
+            'react',
+          },
+          init_options = {
+            userLanguages = { templ = 'html' },
+          },
+        },
+        html = {
+          filetypes = {
+            'html',
+            'templ',
+          },
+        },
+        --
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -647,16 +680,16 @@ require('lazy').setup({
     },
     opts = {
       notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true, typescript = true }
-        return {
-          timeout_ms = 500,
-          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-        }
-      end,
+      -- format_on_save = function(bufnr)
+      --   -- Disable "format_on_save lsp_fallback" for languages that don't
+      --   -- have a well standardized coding style. You can add additional
+      --   -- languages here or re-enable it for the disabled ones.
+      --   local disable_filetypes = { c = true, cpp = true, typescript = true }
+      --   return {
+      --     timeout_ms = 500,
+      --     lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+      --   }
+      -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
@@ -665,6 +698,7 @@ require('lazy').setup({
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
         -- javascript = { { "prettierd", "prettier" } },
+        javascript = { { 'prettierd', 'prettier' } },
         json = { { 'prettierd', 'prettier' } },
         typescript = { { 'prettierd', 'prettier' } },
       },
@@ -847,7 +881,22 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'typescript', 'json', 'markdown', 'dockerfile', 'gitignore' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'vim',
+        'vimdoc',
+        'typescript',
+        'json',
+        'markdown',
+        'dockerfile',
+        'gitignore',
+        'go',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -875,7 +924,8 @@ require('lazy').setup({
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
     init = function()
-      vim.opt.foldmethod = 'expr'
+      -- vim.opt.foldmethod = 'expr'
+      vim.opt.foldmethod = 'manual'
       vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
     end,
   },
