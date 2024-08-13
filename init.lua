@@ -323,7 +323,7 @@ require('lazy').setup({
         -- ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
         -- ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
       }
-      -- visual mode
+      -- visual  { import = "lazyvim.plugins.extras.test.core" },mode
       require('which-key').register(
 
      -- {

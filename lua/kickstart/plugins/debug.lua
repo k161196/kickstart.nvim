@@ -23,6 +23,7 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    "mxsdev/nvim-dap-vscode-js"
   },
   config = function()
     local dap = require 'dap'
@@ -86,5 +87,6 @@ return {
 
     -- Install golang specific config
     require('dap-go').setup()
+    require('dap-javascript').setup()
   end,
 }
