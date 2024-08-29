@@ -527,7 +527,7 @@ require('lazy').setup({
           map('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
 
           -- Fuzzy find all the symbols in your current workspace.
-          --  Similar to document symbols, except searches over your entire project.
+          --  Similar to mocument symbols, except searches over your entire project.
           map('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
           -- Rename the variable under your cursor.
@@ -558,7 +558,7 @@ require('lazy').setup({
               buffer = event.buf,
               group = highlight_augroup,
               callback = vim.lsp.buf.document_highlight,
-            })
+          })  
 
             vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
               buffer = event.buf,
@@ -616,30 +616,30 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         --
-        htmx = {
-          filetypes = {
-            'html',
-            'templ',
-          },
-        },
-        tailwindcss = {
-          filetypes = {
-            'templ',
-            'astro',
-            'javascript',
-            'typescript',
-            'react',
-          },
-          init_options = {
-            userLanguages = { templ = 'html' },
-          },
-        },
-        html = {
-          filetypes = {
-            'html',
-            'templ',
-          },
-        },
+        -- htmx = {
+        --   filetypes = {
+        --     'html',
+        --     'templ',
+        --   },
+        -- },
+        -- tailwindcss = {
+        --   filetypes = {
+        --     'templ',
+        --     'astro',
+        --     'javascript',
+        --     'typescript',
+        --     'react',
+        --   },
+        --   init_options = {
+        --     userLanguages = { templ = 'html' },
+        --   },
+        -- },
+        -- html = {
+        --   filetypes = {
+        --     'html',
+        --     'templ',
+        --   },
+        -- },
         --
         lua_ls = {
           -- cmd = {...},
@@ -878,7 +878,7 @@ require('lazy').setup({
     opts = { signs = false },
   },
 
-  { -- Collection of various small independent plugins/modules
+  { -- Collection of various small independent plugins/modules 
     'echasnovski/mini.nvim',
     config = function()
       -- Better Around/Inside textobjects
@@ -995,9 +995,9 @@ require('lazy').setup({
       local leap = require 'leap'
       -- leap.add_default_mappings()
       leap.opts.case_sensitive = true
-      vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap-forward)')
-      vim.keymap.set({ 'n', 'x', 'o' }, 'S', '<Plug>(leap-backward)')
-      vim.keymap.set({ 'n', 'x', 'o' }, 'gs', '<Plug>(leap-from-window)')
+      vim.keymap.set({ 'n', 'x', 'o' }, 'f', '<Plug>(leap-forward)')
+      vim.keymap.set({ 'n', 'x', 'o' }, 'F', '<Plug>(leap-backward)')
+      vim.keymap.set({ 'n', 'x', 'o' }, 'gf', '<Plug>(leap-from-window)')
     end,
   },
   {
