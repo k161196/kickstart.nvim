@@ -558,7 +558,7 @@ require('lazy').setup({
               buffer = event.buf,
               group = highlight_augroup,
               callback = vim.lsp.buf.document_highlight,
-          })  
+            })
 
             vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
               buffer = event.buf,
@@ -878,7 +878,7 @@ require('lazy').setup({
     opts = { signs = false },
   },
 
-  { -- Collection of various small independent plugins/modules 
+  { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
       -- Better Around/Inside textobjects
@@ -1018,6 +1018,15 @@ require('lazy').setup({
         on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
       }
     end,
+  },
+  {
+    'akinsho/flutter-tools.nvim',
+    lazy = false,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'stevearc/dressing.nvim', -- optional for vim.ui.select
+    },
+    config = true,
   },
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
